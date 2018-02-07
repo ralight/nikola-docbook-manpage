@@ -53,8 +53,9 @@ class CompileDocbookManpage(PageCompiler):
         """Compile the source file into HTML and save as dest."""
         makedirs(os.path.dirname(dest))
         binary = self.site.config.get('XSLTPROC_BINARY', 'xsltproc')
+        xslpath = os.path.join(os.path.split(__file__)[0], 'html.xsl')
         try:
-            subprocess.check_call((binary, '-o', dest, 'html.xsl', source))
+            subprocess.check_call((binary, '-o', dest, xslpath, source))
             if post is None:
                 if shortcode_deps:
                     self.logger.error(
